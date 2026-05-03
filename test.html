@@ -40,7 +40,9 @@
             
         </script>
         <script>
-            
+            function wmrp(start, curr, rate, system_mismatch) {
+                pinpoint_graph.pinpoint("wm_retention", {"x": 3 * (curr - 2001), "y": 3 * (start - 2001)}, {"rg": rate, "b": system_mismatch}, 3)
+            }
         </script>
     </body>
 </html>
