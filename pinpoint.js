@@ -27,7 +27,7 @@ pinpoint_graph = {
             }
             console.log(dist, vectors);
             for(let point = 0; point < pinpoint_graph.points.length; point++) {
-                relationships.push([pinpoint_graph.points[point]].concat(pinpoint_graph.filter(i => (i.x - pinpoint_graph.points[point].x) ** 2 + (i.y - pinpoint_graph.points[point].y) ** 2 == dist ** 2)))
+                relationships.push([pinpoint_graph.points[point]].concat(pinpoint_graph.points.filter(i => (i.x - pinpoint_graph.points[point].x) ** 2 + (i.y - pinpoint_graph.points[point].y) ** 2 == dist ** 2)))
             }
             console.log(relationships);
         }
