@@ -20,12 +20,14 @@ pinpoint_graph = {
         while(change != 0 || dist <= pinpoint_graph.points.length ** 2) {
             change = 0;
             dist++;
+            relationships = [];
             for(let point = 0; point < pinpoint_graph.points.length; point++) {
                 siblings = pinpoint_graph.points.filter(i => (Math.round(100 * ((i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2)) == Math.round(100 * dist ** 2)));
                 if(siblings.length) {
                     relationships.push([pinpoint_graph.points[point]].concat(siblings));
                 }
             }
+            relationships.sort((a) => -a.length);
             console.log(dist, relationships);
         }
     }
