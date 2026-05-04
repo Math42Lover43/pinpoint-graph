@@ -24,7 +24,7 @@ pinpoint_graph = {
                     vectors.push([i, Math.sqrt(dist - i ** 2)]);
                 }
             }
-            console.log(i, vectors);
+            console.log(dist, vectors);
         }
     }
 }
