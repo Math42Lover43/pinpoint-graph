@@ -27,7 +27,7 @@ pinpoint_graph = {
                     relationships.push([pinpoint_graph.points[point]].concat(siblings));
                 }
             }
-            relationships.sort((a) => -a.length);
+            relationships.sort((a, b) => -(a.length - b.length));
             console.log(dist, relationships);
         }
     }
