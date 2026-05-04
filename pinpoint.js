@@ -15,8 +15,19 @@ pinpoint_graph = {
         var change = Infinity;
         var dist = 3;
         var vectors;
-        var relationships = [];
+        var relationships;
         var siblings;
+        var candidates;
+        var props = [
+            ".location.x",
+            ".location.y",
+            ".color.r",
+            ".color.g",
+            ".color.b",
+            ".color.rg",
+            ".color.gb",
+            ".color.br"
+        ];
         while(change != 0 || dist <= pinpoint_graph.points.length ** 2) {
             change = 0;
             dist++;
@@ -28,7 +39,19 @@ pinpoint_graph = {
                 }
             }
             relationships.sort((a, b) => -(a.length - b.length));
-            console.log(dist, relationships);
+            candidates = relationships.map(function(x) {
+                var ret = {"location": {"x": 0, "y": 0}, "color": {"r": 0, "g": 0, "b": 0, "rg": 0, "gb": 0, "br": 0}};
+                for(let i = 0; i < x.length; i++) {
+                    for(let prop = 0; prop < props.length; prop++) {
+                        eval(`ret${props[prop} += x[i]${props[prop};`);
+                    }
+                }
+                for(let prop = 0; prop < props.length; prop++) {
+                    eval(`ret${props[prop} /= x.length`);
+                }
+                return ret;
+            });
+            console.log(dist, candidates);
         }
     }
 }
