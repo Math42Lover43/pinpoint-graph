@@ -30,7 +30,7 @@ pinpoint_graph = {
             for(let point = 0; point < pinpoint_graph.points.length; point++) {
                 siblings = pinpoint_graph.points.filter(i => (i.x - pinpoint_graph.points[point].x) ** 2 + (i.y - pinpoint_graph.points[point].y) ** 2 == dist ** 2);
                 if(siblings != []) {
-                    relationships.push([pinpoint_graph.points[point]].concat(siblings);
+                    relationships.push([pinpoint_graph.points[point]].concat(siblings));
                 }
             }
             console.log(relationships);
