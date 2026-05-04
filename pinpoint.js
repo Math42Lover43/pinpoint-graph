@@ -16,6 +16,7 @@ pinpoint_graph = {
         var dist = 3;
         var vectors;
         var relationships = [];
+        var siblings;
         while(change != 0 || dist <= pinpoint_graph.points.length) {
             change = 0;
             dist++;
@@ -27,7 +28,10 @@ pinpoint_graph = {
             }
             console.log(dist, vectors);
             for(let point = 0; point < pinpoint_graph.points.length; point++) {
-                relationships.push([pinpoint_graph.points[point]].concat(pinpoint_graph.points.filter(i => (i.x - pinpoint_graph.points[point].x) ** 2 + (i.y - pinpoint_graph.points[point].y) ** 2 == dist ** 2)))
+                siblings = pinpoint_graph.points.filter(i => (i.x - pinpoint_graph.points[point].x) ** 2 + (i.y - pinpoint_graph.points[point].y) ** 2 == dist ** 2));
+                if(siblings != []) {
+                    relationships.push([pinpoint_graph.points[point]].concat(siblings);
+                }
             }
             console.log(relationships);
         }
