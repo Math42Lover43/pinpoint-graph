@@ -25,9 +25,8 @@ pinpoint_graph = {
                 if(siblings.length) {
                     relationships.push([pinpoint_graph.points[point]].concat(siblings));
                 }
-                console.log(siblings);
             }
-            console.log(point, relationships);
+            console.log(dist, relationships);
         }
     }
 }
