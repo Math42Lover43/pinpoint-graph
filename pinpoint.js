@@ -96,7 +96,7 @@ pinpoint_graph = {
                     change++;
                 }
                 console.log(change);
-            })
+            }, 1000)
         }
     }
 }
