@@ -1,6 +1,7 @@
 pinpoint_graph = {
     "points": [],
     "size": 1,
+    "rendered": true;
     "pinpoint": function(canvas, location, color, size) {
         location = {"x": Math.round(location.x), "y": Math.round(location.y)};
         pinpoint_graph.size = size;
@@ -12,58 +13,65 @@ pinpoint_graph = {
         });
     },
     "interpolate": function(canvas) {
-        var change = Infinity;
-        var dist = 3;
-        var vectors;
-        var relationships;
-        var siblings;
-        var candidates;
-        var props = [
-            ".location.x",
-            ".location.y",
-            ".color.r",
-            ".color.g",
-            ".color.b",
-            ".color.rg",
-            ".color.gb",
-            ".color.br"
-        ];
-        while(change != 0 || dist <= pinpoint_graph.points.length ** 2) {
-            if(!change) {
-                dist++;
-            }
-            change = 0;
-            relationships = [];
-            for(let point = 0; point < pinpoint_graph.points.length; point++) {
-                siblings = pinpoint_graph.points.filter(i => (Math.round(100 * ((i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2)) == Math.round(100 * dist ** 2)));
-                if(siblings.length) {
-                    relationships.push([pinpoint_graph.points[point]].concat(siblings));
+        if(pinpoint_graph.rendered) {
+            pinpoint_graph.rendered = false;
+            var change = Infinity;
+            var dist = 3;
+            var vectors;
+            var relationships;
+            var siblings;
+            var candidates;
+            var props = [
+                ".location.x",
+                ".location.y",
+                ".color.r",
+                ".color.g",
+                ".color.b",
+                ".color.rg",
+                ".color.gb",
+                ".color.br"
+            ];
+            var rendering = setInterval(function(){
+                if(!(change != 0 || dist <= pinpoint_graph.points.length ** 2)) {
+                    pinpoint_graph.rendered = true;
+                    clearInterval(rendering);
                 }
-            }
-            relationships.sort((a, b) => -(a.length - b.length));
-            candidates = relationships.map(function(x) {
-                var ret = {"location": {"x": 0, "y": 0}, "color": {"r": 0, "g": 0, "b": 0, "rg": 0, "gb": 0, "br": 0}};
-                for(let i = 0; i < x.length; i++) {
-                    for(let prop = 0; prop < props.length; prop++) {
-                        eval(`ret${props[prop]} += x[i]${props[prop]} ? x[i]${props[prop]} : 0;`);
+                if(!change) {
+                    dist++;
+                }
+                change = 0;
+                relationships = [];
+                for(let point = 0; point < pinpoint_graph.points.length; point++) {
+                    siblings = pinpoint_graph.points.filter(i => (Math.round(100 * ((i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2)) == Math.round(100 * dist ** 2)));
+                    if(siblings.length) {
+                        relationships.push([pinpoint_graph.points[point]].concat(siblings));
                     }
                 }
-                for(let prop = 0; prop < props.length; prop++) {
-                    eval(`ret${props[prop]} /= x.length`);
+                relationships.sort((a, b) => -(a.length - b.length));
+                candidates = relationships.map(function(x) {
+                    var ret = {"location": {"x": 0, "y": 0}, "color": {"r": 0, "g": 0, "b": 0, "rg": 0, "gb": 0, "br": 0}};
+                    for(let i = 0; i < x.length; i++) {
+                        for(let prop = 0; prop < props.length; prop++) {
+                            eval(`ret${props[prop]} += x[i]${props[prop]} ? x[i]${props[prop]} : 0;`);
+                        }
+                    }
+                    for(let prop = 0; prop < props.length; prop++) {
+                        eval(`ret${props[prop]} /= x.length`);
+                    }
+                    if(!Math.round(100 * ((ret.x % 1) + (ret.y % 1)))) {
+                        return ret;
+                    }
+                });
+                candidates = candidates.filter(x => x);
+                console.log(dist, candidates);
+                for(let cand = 0; cand < candidates.length; cand++) {
+                    console.log(pinpoint_graph.points.filter(x => (x.location == candidates[cand].location)).length);
+                    if(pinpoint_graph.points.filter(x => (x.location == candidates[cand].location)).length == 0) {
+                        pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
+                        change++;
+                    }
                 }
-                if(!Math.round(100 * ((ret.x % 1) + (ret.y % 1)))) {
-                    return ret;
-                }
-            });
-            candidates = candidates.filter(x => x);
-            console.log(dist, candidates);
-            for(let cand = 0; cand < candidates.length; cand++) {
-                console.log(pinpoint_graph.points.filter(x => (x.location == candidates[cand].location)).length);
-                if(pinpoint_graph.points.filter(x => (x.location == candidates[cand].location)).length == 0) {
-                    pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
-                    change++;
-                }
-            }
+            }, 1000)
         }
     }
 }
