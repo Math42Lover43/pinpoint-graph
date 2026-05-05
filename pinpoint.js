@@ -57,6 +57,7 @@ pinpoint_graph = {
                             eval(`rate${props[prop]} = rate${props[prop]} ? rate${props[prop]} : 0;`);
                         }
                         var point = x[0];
+                        console.log(rate);
                         for(let weight = 0; weight < sqmag - 2; weight++) {
                             for(let prop = 0; prop < props.length; prop++) {
                                 eval(`point${props[prop]} += rate${props[prop]} ? rate${props[prop]} : 0;`);
