@@ -57,7 +57,6 @@ pinpoint_graph = {
                             eval(`rate${props[prop]} = rate${props[prop]} ? rate${props[prop]} : 0;`);
                         }
                         var point = x[0];
-                        console.log(rate);
                         for(let weight = 0; weight < sqmag - 2; weight++) {
                             for(let prop = 0; prop < props.length; prop++) {
                                 eval(`point${props[prop]} += rate${props[prop]} ? rate${props[prop]} : 0;`);
@@ -66,6 +65,7 @@ pinpoint_graph = {
                                 ret.push(point);
                             }
                         }
+                        console.log(ret);
                         return ret;
                     } else {
                         var ret = {"location": {"x": 0, "y": 0}, "color": {"r": 0, "g": 0, "b": 0, "rg": 0, "gb": 0, "br": 0}};
