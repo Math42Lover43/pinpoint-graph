@@ -53,6 +53,9 @@ pinpoint_graph = {
                         var ret = [];
                         var sqmag = (x[1].location.x - x[0].location.x) ** 2 + (x[1].location.y - x[0].location.y) ** 2;
                         var rate = {"location": {"x": (x[1].location.x - x[0].location.x) / sqmag, "y": (x[1].location.y - x[0].location.y) / sqmag}, "color": {"r": (x[1].color.r - x[0].color.r) / sqmag, "g": (x[1].color.g - x[0].color.g) / sqmag, "b": (x[1].color.b - x[0].color.b) / sqmag, "rg": (x[1].color.rg - x[0].color.rg) / sqmag, "gb": (x[1].color.gb - x[0].color.gb) / sqmag, "br": (x[1].color.br - x[0].color.br) / sqmag}};
+                        for(let prop = 0; prop < props.length; prop++) {
+                            eval(`rate{props[prop]} = rate{props[prop]} ? rate{props[prop]} : 0;`);
+                        }
                         var point = x[0];
                         for(let weight = 0; weight < sqmag - 2; weight++) {
                             for(let prop = 0; prop < props.length; prop++) {
@@ -83,7 +86,7 @@ pinpoint_graph = {
                 for(let lin = 0; lin < relationships.length; lin++) {
                     candidates = candidates.concat(relationships[lin]);
                 }
-                candidates = candidates.filter(x => x && (pinpoint_graph.points.filter(k => Math.round(k.location.x) == Math.round(x.location.x) && Math.round(k.location.y) == Math.round(x.location.y)).length == 0));
+                candidates = candidates.filter(x => x && (pinpoint_graph.points.filter(k => Math.round(1000000 * k.location.x) == Math.round(1000000 * x.location.x) && Math.round(1000000 * k.location.y) == Math.round(1000000 * x.location.y)).length == 0));
                 console.log(dist, candidates);
                 for(let cand = 0; cand < candidates.length; cand++) {
                     pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
