@@ -1,7 +1,7 @@
 pinpoint_graph = {
     "points": [],
     "size": 1,
-    "rendered": true;
+    "rendered": true,
     "pinpoint": function(canvas, location, color, size) {
         location = {"x": Math.round(location.x), "y": Math.round(location.y)};
         pinpoint_graph.size = size;
