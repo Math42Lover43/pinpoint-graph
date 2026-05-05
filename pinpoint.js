@@ -59,7 +59,7 @@ pinpoint_graph = {
             console.log(dist, candidates);
             for(let cand = 0; cand < candidates.length; cand++) {
                 console.log(pinpoint_graph.points.filter(x => (x.location == candidates[cand].location)).length);
-                if(!pinpoint_graph.points.filter(x => (x.location == candidates[cand].location)).length) {
+                if(pinpoint_graph.points.filter(x => (x.location == candidates[cand].location)).length == 0) {
                     pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
                     change++;
                 }
