@@ -42,7 +42,7 @@ pinpoint_graph = {
                 change = 0;
                 relationships = [];
                 for(let point = 0; point < pinpoint_graph.points.length; point++) {
-                    siblings = pinpoint_graph.points.filter(i => (Math.round(1000000 * ((i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2)) % 1000000 == Math.round(1000000 * dist ** 2)) % 1000000);
+                    siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist ** 2);
                     if(siblings.length) {
                         relationships.push([pinpoint_graph.points[point]].concat(siblings));
                     }
@@ -63,7 +63,7 @@ pinpoint_graph = {
                             for(let prop = 0; prop < props.length; prop++) {
                                 eval(`point${props[prop]} += rate${props[prop]} ? rate${props[prop]} : 0;`);
                             }
-                            if([0,1000000,2000000].includes(Math.round(1000000 * ((point.location.x % 1) + (point.location.y % 1))))) {
+                            if(!Math.round(1000000 * ((point.location.x % 1) + (point.location.y % 1)))) {
                                 ret.push(point);
                             }
                         }
