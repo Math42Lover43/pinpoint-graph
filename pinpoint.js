@@ -58,15 +58,17 @@ pinpoint_graph = {
                     for(let prop = 0; prop < props.length; prop++) {
                         eval(`ret${props[prop]} /= x.length`);
                     }
-                    if(!Math.round(100 * ((ret.x % 1) + (ret.y % 1))) && pinpoint_graph.points.filter(x => (x.location == ret.location)).length == 0) {
+                    if(!Math.round(100 * ((ret.x % 1) + (ret.y % 1)))) {
                         return ret;
                     }
                 });
                 candidates = candidates.filter(x => x);
                 console.log(dist, candidates);
                 for(let cand = 0; cand < candidates.length; cand++) {
-                    pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
-                    change++;
+                    if(pinpoint_graph.points.filter(x => x.location.x == candidates[cand].location.x && x.location.y == candidates[cand].location.y)) {
+                        pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
+                        change++;
+                    }
                 }
                 console.log(change);
             }, 1000)
