@@ -63,7 +63,7 @@ pinpoint_graph = {
                             for(let prop = 0; prop < props.length; prop++) {
                                 eval(`point${props[prop]} += rate${props[prop]} ? rate${props[prop]} : 0;`);
                             }
-                            if(!Math.round(1000000 * ((point.location.x % 1) + (point.location.y % 1)))) {
+                            if(!(Math.round(1000000 * ((point.location.x % 1) + (point.location.y % 1))) % 1000000)) {
                                 ret.push(point);
                             }
                         }
@@ -79,7 +79,7 @@ pinpoint_graph = {
                         for(let prop = 0; prop < props.length; prop++) {
                             eval(`ret${props[prop]} /= x.length`);
                         }
-                        if([0,1000000,2000000].includes(Math.round(1000000 * ((ret.location.x % 1) + (ret.location.y % 1))))) {
+                        if(!(Math.round(1000000 * ((ret.location.x % 1) + (ret.location.y % 1))) % 1000000)) {
                             return ret;
                         }
                     }
