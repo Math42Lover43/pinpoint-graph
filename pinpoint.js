@@ -43,11 +43,11 @@ pinpoint_graph = {
                 var ret = {"location": {"x": 0, "y": 0}, "color": {"r": 0, "g": 0, "b": 0, "rg": 0, "gb": 0, "br": 0}};
                 for(let i = 0; i < x.length; i++) {
                     for(let prop = 0; prop < props.length; prop++) {
-                        eval(`ret${props[prop} += x[i]${props[prop};`);
+                        eval(`ret${props[prop]} += x[i]${props[prop]};`);
                     }
                 }
                 for(let prop = 0; prop < props.length; prop++) {
-                    eval(`ret${props[prop} /= x.length`);
+                    eval(`ret${props[prop]} /= x.length`);
                 }
                 return ret;
             });
