@@ -29,7 +29,7 @@ pinpoint_graph = {
             ".color.br"
         ];
         while(change != 0 || dist <= pinpoint_graph.points.length ** 2) {
-            if(!charge) {
+            if(!change) {
                 dist++;
             }
             change = 0;
