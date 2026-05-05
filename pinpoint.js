@@ -1,17 +1,15 @@
 pinpoint_graph = {
     "points": [],
     "size": 1,
-    "pinpoint": function(canvas, location, color, size, skip) {
+    "pinpoint": function(canvas, location, color, size) {
         location = {"x": Math.round(location.x), "y": Math.round(location.y)};
         pinpoint_graph.size = size;
         document.getElementById(canvas).getContext("2d").fillStyle = `rgb(${color.br ? (color.br * 255) : color.rg ? (255 - color.rg * 255) : color.r}, ${color.rg ? (color.rg * 255) : color.gb ? (255 - color.gb * 255) : color.g}, ${color.gb ? (color.gb * 255) : color.br ? (255 - color.br * 255) : color.b})`;
         document.getElementById(canvas).getContext("2d").fillRect(location.x * size, location.y * size, size, size);
-        if(!skip) {
-            pinpoint_graph.points.push({
-                "location": location,
-                "color": color
-            });
-        }
+        pinpoint_graph.points.push({
+            "location": location,
+            "color": color
+        });
     },
     "interpolate": function(canvas) {
         var change = Infinity;
@@ -31,8 +29,10 @@ pinpoint_graph = {
             ".color.br"
         ];
         while(change != 0 || dist <= pinpoint_graph.points.length ** 2) {
+            if(!charge) {
+                dist++;
+            }
             change = 0;
-            dist++;
             relationships = [];
             for(let point = 0; point < pinpoint_graph.points.length; point++) {
                 siblings = pinpoint_graph.points.filter(i => (Math.round(100 * ((i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2)) == Math.round(100 * dist ** 2)));
@@ -57,6 +57,12 @@ pinpoint_graph = {
             });
             candidates = candidates.filter(x => x);
             console.log(dist, candidates);
+            for(let cand = 0; cand < candidates.length; cand++) {
+                if(points.filter(x => (x.location == candidates[cand].location)) == []) {
+                    pinpoint_graph.pinpoint(candidates[cand]);
+                    change++;
+                }
+            }
         }
     }
 }
