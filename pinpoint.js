@@ -1,15 +1,17 @@
 pinpoint_graph = {
     "points": [],
     "size": 1,
-    "pinpoint": function(canvas, location, color, size) {
+    "pinpoint": function(canvas, location, color, size, skip) {
         location = {"x": Math.round(location.x), "y": Math.round(location.y)};
         pinpoint_graph.size = size;
         document.getElementById(canvas).getContext("2d").fillStyle = `rgb(${color.br ? (color.br * 255) : color.rg ? (255 - color.rg * 255) : color.r}, ${color.rg ? (color.rg * 255) : color.gb ? (255 - color.gb * 255) : color.g}, ${color.gb ? (color.gb * 255) : color.br ? (255 - color.br * 255) : color.b})`;
         document.getElementById(canvas).getContext("2d").fillRect(location.x * size, location.y * size, size, size);
-        pinpoint_graph.points.push({
-            "location": location,
-            "color": color
-        });
+        if(!skip) {
+            pinpoint_graph.points.push({
+                "location": location,
+                "color": color
+            });
+        }
     },
     "interpolate": function(canvas) {
         var change = Infinity;
@@ -43,14 +45,17 @@ pinpoint_graph = {
                 var ret = {"location": {"x": 0, "y": 0}, "color": {"r": 0, "g": 0, "b": 0, "rg": 0, "gb": 0, "br": 0}};
                 for(let i = 0; i < x.length; i++) {
                     for(let prop = 0; prop < props.length; prop++) {
-                        eval(`ret${props[prop]} += x[i]${props[prop]};`);
+                        eval(`ret${props[prop]} += x[i]${props[prop]} ? x[i]${props[prop]} : 0;`);
                     }
                 }
                 for(let prop = 0; prop < props.length; prop++) {
                     eval(`ret${props[prop]} /= x.length`);
                 }
-                return ret;
+                if(!Math.round(100 * ((ret.x % 1) + (ret.y % 1)))) {
+                    return ret;
+                }
             });
+            candidates = candidates.filter(x => x);
             console.log(dist, candidates);
         }
     }
