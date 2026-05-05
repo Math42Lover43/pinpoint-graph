@@ -83,7 +83,7 @@ pinpoint_graph = {
                 for(let lin = 0; lin < relationships.length; lin++) {
                     candidates = candidates.concat(relationships[lin]);
                 }
-                candidates = candidates.filter(x => x && (pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0));
+                candidates = candidates.filter(x => x && (pinpoint_graph.points.filter(k => Math.round(k.location.x) == Math.round(x.location.x) && Math.round(k.location.y) == Math.round(x.location.y)).length == 0));
                 console.log(dist, candidates);
                 for(let cand = 0; cand < candidates.length; cand++) {
                     pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
