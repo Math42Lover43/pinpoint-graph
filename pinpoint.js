@@ -76,3 +76,4 @@ pinpoint_graph = {
 // You can easily configure a function to pinpoint_graph.pinpoint using your preferred settings, but hue combos other than these might not work as intended: R G B, R↔G B, G↔B R, B↔R G
 // If you want to create multiple graphs using this extension, then be sure to reset pinpoint_graph.points to [];
 // For one graph, plot all the points you want first, then use the interpolate function. Please use one pixel size and one target canvas throughout, otherwise, you may get bad results.
+// It is safer to avoid changing the points list when extrapolating and postpone such changes once rendering is done.
