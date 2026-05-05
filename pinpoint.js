@@ -62,13 +62,11 @@ pinpoint_graph = {
                         return ret;
                     }
                 });
-                candidates = candidates.filter(x => x);
+                candidates = candidates.filter(x => pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length);
                 console.log(dist, candidates);
                 for(let cand = 0; cand < candidates.length; cand++) {
-                    if(pinpoint_graph.points.filter(x => x.location.x == candidates[cand].location.x && x.location.y == candidates[cand].location.y)) {
-                        pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
-                        change++;
-                    }
+                    pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
+                    change++;
                 }
                 console.log(change);
             }, 1000)
