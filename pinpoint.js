@@ -58,7 +58,7 @@ pinpoint_graph = {
                     for(let prop = 0; prop < props.length; prop++) {
                         eval(`ret${props[prop]} /= x.length`);
                     }
-                    if(!Math.round(100 * ((ret.x % 1) + (ret.y % 1)))) {
+                    if(!Math.round(100 * ((ret.location.x % 1) + (ret.location.y % 1)))) {
                         return ret;
                     }
                 });
