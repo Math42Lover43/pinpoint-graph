@@ -42,26 +42,47 @@ pinpoint_graph = {
                 change = 0;
                 relationships = [];
                 for(let point = 0; point < pinpoint_graph.points.length; point++) {
-                    siblings = pinpoint_graph.points.filter(i => (Math.round(100 * ((i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2)) == Math.round(100 * dist ** 2)));
+                    siblings = pinpoint_graph.points.filter(i => (Math.round(1000000 * ((i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2)) == Math.round(1000000 * dist ** 2)));
                     if(siblings.length) {
                         relationships.push([pinpoint_graph.points[point]].concat(siblings));
                     }
                 }
                 relationships.sort((a, b) => -(a.length - b.length));
                 candidates = relationships.map(function(x) {
-                    var ret = {"location": {"x": 0, "y": 0}, "color": {"r": 0, "g": 0, "b": 0, "rg": 0, "gb": 0, "br": 0}};
-                    for(let i = 0; i < x.length; i++) {
+                    if(x.length == 2) {
+                        var ret = [];
+                        var sqmag = (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2;
+                        var rate = {"location": {"x": (x[1].location.x - x[0].location.x) / sqmag, "y": (x[1].location.y - x[0].location.y) / sqmag}, "color": {"r": (x[1].color.r - x[0].color.r) / sqmag, "g": (x[1].color.g - x[0].color.g) / sqmag, "b": (x[1].color.b - x[0].color.b) / sqmag, "rg": (x[1].color.rg - x[0].color.rg) / sqmag, "gb": (x[1].color.gb - x[0].color.gb) / sqmag, "br": (x[1].color.br - x[0].color.br) / sqmag}};
+                        var point = x[0];
+                        for(let weight = 0; weight < sqmag - 2; weight++) {
+                            for(let prop = 0; prop < props.length; prop++) {
+                                eval(`point${props[prop]} += rate${props[prop]} ? rate${props[prop]} : 0;`);
+                            }
+                            if(!Math.round(1000000 * ((point.location.x % 1) + (point.location.y % 1)))) {
+                                ret.push(point);
+                            }
+                        }
+                        return ret;
+                    } else {
+                        var ret = {"location": {"x": 0, "y": 0}, "color": {"r": 0, "g": 0, "b": 0, "rg": 0, "gb": 0, "br": 0}};
+                        for(let i = 0; i < x.length; i++) {
+                            for(let prop = 0; prop < props.length; prop++) {
+                                eval(`ret${props[prop]} += x[i]${props[prop]} ? x[i]${props[prop]} : 0;`);
+                            }
+                        }
                         for(let prop = 0; prop < props.length; prop++) {
-                            eval(`ret${props[prop]} += x[i]${props[prop]} ? x[i]${props[prop]} : 0;`);
+                            eval(`ret${props[prop]} /= x.length`);
+                        }
+                        if(!Math.round(1000000 * ((ret.location.x % 1) + (ret.location.y % 1)))) {
+                            return ret;
                         }
                     }
-                    for(let prop = 0; prop < props.length; prop++) {
-                        eval(`ret${props[prop]} /= x.length`);
-                    }
-                    if(!Math.round(100 * ((ret.location.x % 1) + (ret.location.y % 1)))) {
-                        return ret;
-                    }
                 });
+                relationships = candidates;
+                candidates = [];
+                for(let lin = 0; lin < relationships.length; lin++) {
+                    candidates = candidates.concat(relationships[lin]);
+                }
                 candidates = candidates.filter(x => x && (pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0));
                 console.log(dist, candidates);
                 for(let cand = 0; cand < candidates.length; cand++) {
