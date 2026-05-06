@@ -108,8 +108,13 @@ pinpoint_graph = {
                     }
                 });
                 console.log(candidates);
+                relationships = candidates;
+                candidates = [];
+                for(let c = 0; c < relationships.length; c++) {
+                    candidates = candidates.concat(relationships[c]);
+                }
                 // x => x && pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0)
-                candidates = candidates.filter(x => console.log(x) && (pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0));
+                candidates = candidates.filter(x => x && (pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0));
                 console.log(dist, candidates);
                 for(let cand = 0; cand < candidates.length; cand++) {
                     pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
