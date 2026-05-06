@@ -69,6 +69,7 @@ pinpoint_graph = {
                                 ret.push(point);
                             }
                         }
+                        console.log(ret);
                         return ret;
                     } else {
                         var ret = {"location": {"x": 0, "y": 0}, "color": {"r": 0, "g": 0, "b": 0, "rg": 0, "gb": 0, "br": 0}};
