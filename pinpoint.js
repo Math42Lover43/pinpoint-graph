@@ -69,7 +69,7 @@ pinpoint_graph = {
                         console.log(relationships[relationships.length - 1]);
                     }
                 }
-                relationships.sort((a, b) => -(a.length - b.length));
+                relationships = relationships.sort((a, b) => -(a.length - b.length));
                 console.log(relationships);
                 candidates = relationships.map(function(x) {
                     if(x.length == 2) {
