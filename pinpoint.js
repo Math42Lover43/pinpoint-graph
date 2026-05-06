@@ -16,7 +16,7 @@ pinpoint_graph = {
         if(pinpoint_graph.rendered) {
             pinpoint_graph.rendered = false;
             var change = Infinity;
-            var dist = 3;
+            var dist = 4;
             var vectors;
             var relationships;
             var siblings;
