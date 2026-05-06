@@ -94,7 +94,7 @@ pinpoint_graph = {
                 candidates = candidates.filter(function(x) {
                     console.log(x);
                     console.log(pinpoint_graph.points.filter(k => Math.round(1000000 * k.location.x) == Math.round(1000000 * x.location.x) && Math.round(1000000 * k.location.y) == Math.round(1000000 * x.location.y)).length);
-                    return true;
+                    return pinpoint_graph.points.filter(k => Math.round(1000000 * k.location.x) == Math.round(1000000 * x.location.x) && Math.round(1000000 * k.location.y) == Math.round(1000000 * x.location.y)).length == 0;
                 });
                 console.log(dist, candidates);
                 for(let cand = 0; cand < candidates.length; cand++) {
