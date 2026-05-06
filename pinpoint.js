@@ -70,14 +70,7 @@ pinpoint_graph = {
                 }
                 relationships = relationships.sort((a, b) => -(a.length - b.length));
                 console.log(relationships);
-                candidates = [];
-                for(let lin = 0; lin < relationships.length; lin++) {
-                    if(relationships[lin]) {
-                        candidates = candidates.concat(relationships[lin]);
-                    }
-                }
-                console.log(candidates);
-                candidates = candidates.map(function(x) {
+                candidates = relationships.map(function(x) {
                     if(x.length == 21871) {
                         var ret = [];
                         var vect = pinpoint_graph.vectorred([x[1].location.x - x[0].location.x, x[1].location.y - x[0].location.y])
