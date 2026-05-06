@@ -45,6 +45,7 @@ pinpoint_graph = {
                     siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist ** 2);
                     if(siblings.length) {
                         relationships.push([pinpoint_graph.points[point]].concat(siblings));
+                        console.log(relationships[relationships.length]);
                     }
                 }
                 relationships.sort((a, b) => -(a.length - b.length));
