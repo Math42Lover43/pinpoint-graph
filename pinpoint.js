@@ -14,6 +14,15 @@ pinpoint_graph = {
     },
     "vectorred": function(v) {
         var c = 1;
+        if(v[0] == 0 && v[1] == 0) {
+            return {"vector": [0, 0], "coefficient": 1};
+        }
+        if(v[0] == 0) {
+            return {"vector": [0, v[1] / Math.abs(v[1])], "coefficient": Math.abs(v[1])};
+        }
+        if(v[1] == 0) {
+            return {"vector": [v[0] / Math.abs(v[0]), 0], "coefficient": Math.abs(v[0])};
+        }
         for(let a = 2; a <= Math.abs(v[0]) && a <= Math.abs(v[1]); a++) {
             while(v[0] % a == 0 && v[1] % a == 0) {
                 v[0] /= a;
