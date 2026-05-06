@@ -14,6 +14,7 @@ pinpoint_graph = {
     },
     "interpolate": function(canvas) {
         if(pinpoint_graph.rendered) {
+            console.log(pinpoint_graph.points);
             pinpoint_graph.rendered = false;
             var change = Infinity;
             var dist = 4;
