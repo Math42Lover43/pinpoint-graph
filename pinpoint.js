@@ -86,7 +86,9 @@ pinpoint_graph = {
                 relationships = candidates;
                 candidates = [];
                 for(let lin = 0; lin < relationships.length; lin++) {
-                    candidates = candidates.concat(relationships[lin]);
+                    if(relationships[lin]) {
+                        candidates = candidates.concat(relationships[lin]);
+                    }
                 }
                 // x => x && (pinpoint_graph.points.filter(k => Math.round(1000000 * k.location.x) == Math.round(1000000 * x.location.x) && Math.round(1000000 * k.location.y) == Math.round(1000000 * x.location.y)).length == 0)
                 candidates = candidates.filter(function(x) {
