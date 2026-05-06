@@ -52,7 +52,7 @@ pinpoint_graph = {
                     if(x.length == 2) {
                         var ret = [];
                         var sqmag = (x[1].location.x - x[0].location.x) ** 2 + (x[1].location.y - x[0].location.y) ** 2;
-                        c
+                        console.log(sqmag);
                         var rate = {"location": {"x": (x[1].location.x - x[0].location.x) / sqmag, "y": (x[1].location.y - x[0].location.y) / sqmag}, "color": {"r": (x[1].color.r - x[0].color.r) / sqmag, "g": (x[1].color.g - x[0].color.g) / sqmag, "b": (x[1].color.b - x[0].color.b) / sqmag, "rg": (x[1].color.rg - x[0].color.rg) / sqmag, "gb": (x[1].color.gb - x[0].color.gb) / sqmag, "br": (x[1].color.br - x[0].color.br) / sqmag}};
                         for(let prop = 0; prop < props.length; prop++) {
                             eval(`
