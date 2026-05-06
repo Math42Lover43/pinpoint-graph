@@ -63,7 +63,7 @@ pinpoint_graph = {
                             for(let prop = 0; prop < props.length; prop++) {
                                 eval(`point${props[prop]} += rate${props[prop]} ? rate${props[prop]} : 0;`);
                             }
-                            if(!(Math.round(1000000 * ((point.location.x % 1) + (point.location.y % 1))) % 1000000)) {
+                            if(!((Math.round(1000000 * (point.location.x % 1)) % 1000000) || (Math.round(1000000 * (point.location.y % 1)) % 1000000))) {
                                 point.location.x = Math.round(point.location.x);
                                 point.location.y = Math.round(point.location.y);
                                 ret.push(point);
