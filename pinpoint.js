@@ -64,6 +64,8 @@ pinpoint_graph = {
                                 eval(`point${props[prop]} += rate${props[prop]} ? rate${props[prop]} : 0;`);
                             }
                             if(!(Math.round(1000000 * ((point.location.x % 1) + (point.location.y % 1))) % 1000000)) {
+                                point.location.x = Math.round(point.location.x);
+                                point.location.y = Math.round(point.location.y);
                                 ret.push(point);
                             }
                         }
@@ -91,11 +93,7 @@ pinpoint_graph = {
                     }
                 }
                 // x => x && (pinpoint_graph.points.filter(k => Math.round(1000000 * k.location.x) == Math.round(1000000 * x.location.x) && Math.round(1000000 * k.location.y) == Math.round(1000000 * x.location.y)).length == 0)
-                candidates = candidates.filter(function(x) {
-                    console.log(x);
-                    console.log(pinpoint_graph.points.filter(k => Math.round(1000000 * k.location.x) == Math.round(1000000 * x.location.x) && Math.round(1000000 * k.location.y) == Math.round(1000000 * x.location.y)).length);
-                    return pinpoint_graph.points.filter(k => Math.round(1000000 * k.location.x) == Math.round(1000000 * x.location.x) && Math.round(1000000 * k.location.y) == Math.round(1000000 * x.location.y)).length == 0;
-                });
+                candidates = candidates.filter(x => pinpoint_graph.points.filter(k => Math.round(1000000 * k.location.x) == Math.round(1000000 * x.location.x) && Math.round(1000000 * k.location.y) == Math.round(1000000 * x.location.y)).length == 0);
                 console.log(dist, candidates);
                 for(let cand = 0; cand < candidates.length; cand++) {
                     pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
