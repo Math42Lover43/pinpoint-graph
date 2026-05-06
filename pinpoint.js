@@ -12,6 +12,17 @@ pinpoint_graph = {
             "color": color
         });
     },
+    "vectorred": function(v) {
+        var c = 1;
+        for(let a = 2; a <= Math.abs(v[0]) && a <= Math.abs(v[1]); a++) {
+            while(v[0] % a == 0 && v[1] % a == 0) {
+                v[0] /= a;
+                v[1] /= a;
+                c *= a;
+            }
+        }
+        return {"vector": v, "coefficient": c};
+    },
     "interpolate": function(canvas) {
         if(pinpoint_graph.rendered) {
             console.log(pinpoint_graph.points);
@@ -52,25 +63,22 @@ pinpoint_graph = {
                 relationships.sort((a, b) => -(a.length - b.length));
                 console.log(relationships);
                 candidates = relationships.map(function(x) {
-                    if(x.length == 21871) {
+                    if(x.length == 2) {
                         var ret = [];
-                        var sqmag = (x[1].location.x - x[0].location.x) ** 2 + (x[1].location.y - x[0].location.y) ** 2;
-                        var rate = {"location": {"x": (x[1].location.x - x[0].location.x) / sqmag, "y": (x[1].location.y - x[0].location.y) / sqmag}, "color": {"r": (x[1].color.r - x[0].color.r) / sqmag, "g": (x[1].color.g - x[0].color.g) / sqmag, "b": (x[1].color.b - x[0].color.b) / sqmag, "rg": (x[1].color.rg - x[0].color.rg) / sqmag, "gb": (x[1].color.gb - x[0].color.gb) / sqmag, "br": (x[1].color.br - x[0].color.br) / sqmag}};
+                        ver vect = pinpoint_graph.vectorred([x[1].location.x - x[0].location.x, x[1].location.y - x[0].location.y])
+                        var sqmag = vect.coefficient;
+                        var rate = {"location": {"x": vect.vector[0], "y": vect.vector[1]}, "color": {"r": (x[1].color.r - x[0].color.r) / sqmag, "g": (x[1].color.g - x[0].color.g) / sqmag, "b": (x[1].color.b - x[0].color.b) / sqmag, "rg": (x[1].color.rg - x[0].color.rg) / sqmag, "gb": (x[1].color.gb - x[0].color.gb) / sqmag, "br": (x[1].color.br - x[0].color.br) / sqmag}};
                         for(let prop = 0; prop < props.length; prop++) {
                             eval(`
                                 rate${props[prop]} = rate${props[prop]} ? rate${props[prop]} : 0;
                             `);
                         }
                         var point = x[0];
-                        for(let weight = 0; weight < sqmag - 2; weight++) {
+                        for(let weight = 0; weight < sqmag - 1; weight++) {
                             for(let prop = 0; prop < props.length; prop++) {
                                 eval(`point${props[prop]} += rate${props[prop]} ? rate${props[prop]} : 0;`);
                             }
-                            if(!((Math.round(1000000 * (point.location.x % 1)) % 1000000) || (Math.round(1000000 * (point.location.y % 1)) % 1000000))) {
-                                point.location.x = Math.round(point.location.x);
-                                point.location.y = Math.round(point.location.y);
-                                ret.push(point);
-                            }
+                            ret.push(point);
                         }
                         console.log(ret);
                         return ret;
