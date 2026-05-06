@@ -71,7 +71,7 @@ pinpoint_graph = {
                 relationships = relationships.sort((a, b) => -(a.length - b.length));
                 console.log(relationships);
                 candidates = relationships.map(function(x) {
-                    if(x.length == 21871) {
+                    if(x.length == 2) {
                         var ret = [];
                         var vect = pinpoint_graph.vectorred([x[1].location.x - x[0].location.x, x[1].location.y - x[0].location.y])
                         var sqmag = vect.coefficient;
@@ -84,6 +84,7 @@ pinpoint_graph = {
                         }
                         var point = x[0];
                         for(let weight = 0; weight < sqmag - 1; weight++) {
+                            console.log(point);
                             for(let prop = 0; prop < props.length; prop++) {
                                 eval(`point${props[prop]} += rate${props[prop]} ? rate${props[prop]} : 0;`);
                             }
