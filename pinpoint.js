@@ -63,7 +63,7 @@ pinpoint_graph = {
                 change = 0;
                 relationships = [];
                 for(let point = 0; point < pinpoint_graph.points.length; point++) {
-                    siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist);
+                    siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist ** 2);
                     if(siblings.length) {
                         relationships.push([pinpoint_graph.points[point]].concat(siblings));
                     }
@@ -107,18 +107,20 @@ pinpoint_graph = {
                         }
                     }
                 });
-                console.log(candidates);
                 relationships = candidates;
                 candidates = [];
                 for(let c = 0; c < relationships.length; c++) {
                     candidates = candidates.concat(relationships[c]);
                 }
+                console.log(candidates);
                 // x => x && pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0)
                 candidates = candidates.filter(x => x && (pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0));
                 console.log(dist, candidates);
                 for(let cand = 0; cand < candidates.length; cand++) {
-                    pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
-                    change++;
+                    if(pinpoint_graph.points.filter(x => candidates[cand].location.x == x.location.x && candidates[cand].location.y == x.location.y).length == 0) {
+                        pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
+                        change++;
+                    }
                 }
                 console.log(change);
             }, 1000)
