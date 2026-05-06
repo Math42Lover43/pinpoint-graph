@@ -65,7 +65,7 @@ pinpoint_graph = {
                 candidates = relationships.map(function(x) {
                     if(x.length == 2) {
                         var ret = [];
-                        ver vect = pinpoint_graph.vectorred([x[1].location.x - x[0].location.x, x[1].location.y - x[0].location.y])
+                        var vect = pinpoint_graph.vectorred([x[1].location.x - x[0].location.x, x[1].location.y - x[0].location.y])
                         var sqmag = vect.coefficient;
                         var rate = {"location": {"x": vect.vector[0], "y": vect.vector[1]}, "color": {"r": (x[1].color.r - x[0].color.r) / sqmag, "g": (x[1].color.g - x[0].color.g) / sqmag, "b": (x[1].color.b - x[0].color.b) / sqmag, "rg": (x[1].color.rg - x[0].color.rg) / sqmag, "gb": (x[1].color.gb - x[0].color.gb) / sqmag, "br": (x[1].color.br - x[0].color.br) / sqmag}};
                         for(let prop = 0; prop < props.length; prop++) {
