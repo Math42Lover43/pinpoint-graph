@@ -78,7 +78,7 @@ pinpoint_graph = {
                 }
                 console.log(candidates);
                 candidates = candidates.map(function(x) {
-                    if(x.length == 2) {
+                    if(x.length == 21871) {
                         var ret = [];
                         var vect = pinpoint_graph.vectorred([x[1].location.x - x[0].location.x, x[1].location.y - x[0].location.y])
                         var sqmag = vect.coefficient;
