@@ -90,7 +90,9 @@ pinpoint_graph = {
                             }
                             ret.push(structuredClone(point));
                         }
-                        console.log(ret);
+                        if(!vect.vector.includes(0)) {
+                            console.log(ret);
+                        }
                         return ret;
                     } else {
                         var ret = {"location": {"x": 0, "y": 0}, "color": {"r": 0, "g": 0, "b": 0, "rg": 0, "gb": 0, "br": 0}};
