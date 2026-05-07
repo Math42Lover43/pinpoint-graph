@@ -89,7 +89,7 @@ pinpoint_graph = {
                         var ret = [];
                         for(let weight = 0; weight < sqmag - 1; weight++) {
                             for(let prop = 0; prop < props.length; prop++) {
-                                eval(`point${props[prop]} += rate${props[prop]} ? rate${props[prop]} : 0; console.log(point.${props[prop]})`);
+                                eval(`point${props[prop]} += rate${props[prop]} ? rate${props[prop]} : 0; console.log(point${props[prop]})`);
                             }
                             console.log(point);
                             ret.push(point);
