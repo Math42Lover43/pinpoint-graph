@@ -69,11 +69,9 @@ pinpoint_graph = {
                     }
                 }
                 relationships = relationships.sort((a, b) => -(a.length - b.length));
-                console.log(relationships);
                 candidates = relationships.map(function(x) {
                     if(x.length == 2) {
                         var vect = pinpoint_graph.vectorred([x[1].location.x - x[0].location.x, x[1].location.y - x[0].location.y]);
-                        console.log(vect);
                         var sqmag = vect.coefficient;
                         var rate = {
                             "location": {"x": vect.vector[0], "y": vect.vector[1]},
@@ -85,14 +83,11 @@ pinpoint_graph = {
                                 rate${props[prop]} = rate${props[prop]} || 0;
                             `);
                         }
-                        console.log(x, rate, sqmag);
                         var ret = [];
                         for(let weight = 0; weight < sqmag - 1; weight++) {
                             for(let prop = 0; prop < props.length; prop++) {
-                                console.log(`point${props[prop]} += rate${props[prop]} || 0; console.log(point${props[prop]}`);
-                                eval(`point${props[prop]} += rate${props[prop]} || 0; console.log(point${props[prop]});`);
+                                eval(`point${props[prop]} += rate${props[prop]} || 0;`);
                             }
-                            console.log(point);
                             ret.push(structuredClone(point));
                         }
                         console.log(ret);
@@ -117,7 +112,6 @@ pinpoint_graph = {
                 for(let c = 0; c < relationships.length; c++) {
                     candidates = candidates.concat(relationships[c]);
                 }
-                console.log(candidates);
                 // x => x && pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0)
                 candidates = candidates.filter(x => x && (pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0));
                 console.log(dist, candidates);
