@@ -93,7 +93,7 @@ pinpoint_graph = {
                                 eval(`point${props[prop]} += rate${props[prop]} || 0; console.log(point${props[prop]});`);
                             }
                             console.log(point);
-                            ret.push(point);
+                            ret.push(structuredClone(point));
                         }
                         console.log(ret);
                         return ret;
