@@ -82,14 +82,15 @@ pinpoint_graph = {
                         var point = x[0];
                         for(let prop = 0; prop < props.length; prop++) {
                             eval(`
-                                rate${props[prop]} = rate${props[prop]} ? rate${props[prop]} : 0;
+                                rate${props[prop]} = rate${props[prop]} || 0;
                             `);
                         }
                         console.log(x, rate, sqmag);
                         var ret = [];
                         for(let weight = 0; weight < sqmag - 1; weight++) {
                             for(let prop = 0; prop < props.length; prop++) {
-                                eval(`point${props[prop]} += rate${props[prop]} ? rate${props[prop]} : 0; console.log(point${props[prop]})`);
+                                console.log(`point${props[prop]} += rate${props[prop]} || 0; console.log(point${props[prop]}`);
+                                eval(`point${props[prop]} += rate${props[prop]} || 0; console.log(point${props[prop]});`);
                             }
                             console.log(point);
                             ret.push(point);
@@ -100,7 +101,7 @@ pinpoint_graph = {
                         var ret = {"location": {"x": 0, "y": 0}, "color": {"r": 0, "g": 0, "b": 0, "rg": 0, "gb": 0, "br": 0}};
                         for(let i = 0; i < x.length; i++) {
                             for(let prop = 0; prop < props.length; prop++) {
-                                eval(`ret${props[prop]} += x[i]${props[prop]} ? x[i]${props[prop]} : 0;`);
+                                eval(`ret${props[prop]} += x[i]${props[prop]} || 0;`);
                             }
                         }
                         for(let prop = 0; prop < props.length; prop++) {
