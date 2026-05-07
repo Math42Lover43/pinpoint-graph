@@ -124,7 +124,7 @@ pinpoint_graph = {
                     }
                 }
                 console.log(change);
-            }, 1000)
+            }, 0)
         }
     }
 }
