@@ -116,14 +116,12 @@ pinpoint_graph = {
                 }
                 // x => x && pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0)
                 candidates = candidates.filter(x => x && (pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0));
-                console.log(dist, candidates);
                 for(let cand = 0; cand < candidates.length; cand++) {
                     if(pinpoint_graph.points.filter(x => Math.round(candidates[cand].location.x - x.location.x) == 0 && Math.round(candidates[cand].location.y - x.location.y) == 0).length == 0) {
                         pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
                         change++;
                     }
                 }
-                console.log(change);
             }, 0)
         }
     }
