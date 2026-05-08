@@ -34,7 +34,6 @@ pinpoint_graph = {
     },
     "interpolate": function(canvas) {
         if(pinpoint_graph.rendered) {
-            console.log(pinpoint_graph.points);
             pinpoint_graph.rendered = false;
             var change = Infinity;
             var dist = 4;
@@ -71,7 +70,6 @@ pinpoint_graph = {
                     }
                 }
                 relationships = relationships.sort((a, b) => -(a.length - b.length));
-                console.log(dist, relationships);
                 candidates = relationships.map(function(x) {
                     if(x.length == 2) {
                         var vect = pinpoint_graph.vectorred([x[1].location.x - x[0].location.x, x[1].location.y - x[0].location.y]);
@@ -92,9 +90,6 @@ pinpoint_graph = {
                                 eval(`point${props[prop]} += rate${props[prop]} || 0;`);
                             }
                             ret.push(structuredClone(point));
-                        }
-                        if(!vect.vector.includes(0)) {
-                            console.log(x, ret);
                         }
                         return ret;
                     } else {
@@ -125,7 +120,7 @@ pinpoint_graph = {
                         change++;
                     }
                 }
-            }, 0)
+            }, 1000)
         }
     }
 }
