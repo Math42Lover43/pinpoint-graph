@@ -65,7 +65,7 @@ pinpoint_graph = {
                 for(let point = 0; point < pinpoint_graph.points.length; point++) {
                     // siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist);
                     siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist);
-                    if(siblings.length) {
+                    if(siblings.length > 1) {
                         relationships.push([pinpoint_graph.points[point]].concat(siblings));
                     }
                 }
