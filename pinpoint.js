@@ -120,7 +120,7 @@ pinpoint_graph = {
                         change++;
                     }
                 }
-            }, 1000)
+            })
         }
     }
 }
