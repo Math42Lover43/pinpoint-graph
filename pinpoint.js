@@ -70,7 +70,7 @@ pinpoint_graph = {
                         relationships.push([structuredClone(pinpoint_graph.points[point])].concat(siblings));
                     }
                 }
-                console.log(dist, siblings);
+                console.log(dist, relationships);
                 relationships = relationships.sort((a, b) => -(a.length - b.length));
                 candidates = relationships.map(function(x) {
                     if(x.length == 2) {
