@@ -64,11 +64,12 @@ pinpoint_graph = {
                 relationships = [];
                 for(let point = 0; point < pinpoint_graph.points.length; point++) {
                     // siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist);
-                    siblings = pinpoint_graph.points.filter(i => console.log(i, (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2, dist));
+                    siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist);
                     if(siblings.length) {
                         relationships.push([pinpoint_graph.points[point]].concat(siblings));
                     }
                 }
+                console.log(dist, siblings);
                 relationships = relationships.sort((a, b) => -(a.length - b.length));
                 candidates = relationships.map(function(x) {
                     if(x.length == 2) {
