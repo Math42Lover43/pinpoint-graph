@@ -56,7 +56,9 @@ pinpoint_graph = {
                     pinpoint_graph.rendered = true;
                     clearInterval(rendering);
                 }
-                if(!change) {
+                if(change) {
+                    dist = 4;
+                } else {
                     dist++;
                 }
                 change = 0;
