@@ -64,7 +64,7 @@ pinpoint_graph = {
                 }
                 change = 0;
                 relationships = [];
-                pinpoint_graph = pinpoint_graph.points.filter(function(x) {
+                pinpoint_graph.points = pinpoint_graph.points.filter(function(x) {
                     var unblock = 8;
                     unblock -= pinpoint_graph.points.find(y => (y.location.x - x.location.x) == -1 && (y.location.y - x.location.y) == -1);
                     unblock -= pinpoint_graph.points.find(y => (y.location.x - x.location.x) == -1 && (y.location.y - x.location.y) == 0);
