@@ -115,9 +115,9 @@ pinpoint_graph = {
                     candidates = candidates.concat(relationships[c]);
                 }
                 // x => x && pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0)
-                candidates = candidates.filter(x => x && !pinpoint_graph.points.find(k => k.location.x == x.location.x && k.location.y == x.location.y));
+                candidates = candidates.filter(x => x && (pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0));
                 for(let cand = 0; cand < candidates.length; cand++) {
-                    if(!pinpoint_graph.points.find(x => candidates[cand].location.x == x.location.x && candidates[cand].location.y == x.location.y)) {
+                    if(pinpoint_graph.points.filter(x => Math.round(candidates[cand].location.x - x.location.x) == 0 && Math.round(candidates[cand].location.y - x.location.y) == 0).length == 0) {
                         pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
                         change++;
                     }
