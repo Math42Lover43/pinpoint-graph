@@ -41,6 +41,7 @@ pinpoint_graph = {
             var relationships;
             var siblings;
             var candidates;
+            var oxygen = [];
             var props = [
                 ".location.x",
                 ".location.y",
@@ -68,7 +69,10 @@ pinpoint_graph = {
                     siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist);
                     siblings = siblings.map(x => structuredClone(x));
                     for(let sis = 0; sis < siblings.length; sis++) {
-                        relationships.push([structuredClone(pinpoint_graph.points[point]), siblings[sis]]);
+                        if(!oxygen.includes(`${pinpoint_graph.points[point].location.x} ${pinpoint_graph.points[point].location.y} ${siblings[sis].location.x} ${siblings[sis].location.y}`)) {
+                            relationships.push([structuredClone(pinpoint_graph.points[point]), siblings[sis]]);
+                            oxygen.push(`${pinpoint_graph.points[point].location.x} ${pinpoint_graph.points[point].location.y} ${siblings[sis].location.x} ${siblings[sis].location.y}`);
+                        }
                     }
                 }
                 relationships = relationships.sort((a, b) => -(a.length - b.length));
