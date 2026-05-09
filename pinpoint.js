@@ -64,6 +64,7 @@ pinpoint_graph = {
                 }
                 change = 0;
                 relationships = [];
+                var old = pinpoint_graph.points.length;
                 pinpoint_graph.points = pinpoint_graph.points.filter(function(x) {
                     var unblock = 8;
                     unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == -1 && (y.location.y - x.location.y) == -1).length != 0;
@@ -74,9 +75,9 @@ pinpoint_graph = {
                     unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == -1).length != 0;
                     unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == 0).length != 0;
                     unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == 1).length != 0;
-                    console.log(x, unblock);
                     return unblock;
-                })
+                });
+                console.log(old - pinpoint_graph.points.length);
                 for(let point = 0; point < pinpoint_graph.points.length; point++) {
                     // siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist);
                     siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist);
