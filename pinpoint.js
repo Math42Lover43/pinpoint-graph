@@ -32,12 +32,11 @@ pinpoint_graph = {
         }
         return {"vector": v, "coefficient": c};
     },
-    "vectors_allowed": [],
     "interpolate": function(canvas) {
         if(pinpoint_graph.rendered) {
             pinpoint_graph.rendered = false;
             var change = Infinity;
-            var dist = 0;
+            var dist = 4;
             var vectors;
             var relationships;
             var siblings;
@@ -53,27 +52,26 @@ pinpoint_graph = {
                 ".color.br"
             ];
             var rendering = setInterval(function(){
-                if(!(change != 0 || pinpoint_graph.vectors_allowed[dist])) {
+                if(!(change != 0 || dist <= pinpoint_graph.points.length ** 2)) {
                     pinpoint_graph.rendered = true;
                     clearInterval(rendering);
                 }
                 if(change) {
-                    dist = 0;
+                    dist = 4;
                 } else {
                     dist++;
                 }
                 change = 0;
                 relationships = [];
                 for(let point = 0; point < pinpoint_graph.points.length; point++) {
-                    // siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == pinpoint_graph.vectors_allowed[dist]);
-                    siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == pinpoint_graph.vectors_allowed[dist]);
+                    // siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist);
+                    siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist);
                     siblings = siblings.map(x => structuredClone(x));
                     if(siblings.length) {
                         relationships.push([structuredClone(pinpoint_graph.points[point])].concat(siblings));
                     }
                 }
                 relationships = relationships.sort((a, b) => -(a.length - b.length));
-                console.log(relationships);
                 candidates = relationships.map(function(x) {
                     if(x.length == 2) {
                         var vect = pinpoint_graph.vectorred([x[1].location.x - x[0].location.x, x[1].location.y - x[0].location.y]);
@@ -106,7 +104,7 @@ pinpoint_graph = {
                         for(let prop = 0; prop < props.length; prop++) {
                             eval(`ret${props[prop]} /= x.length`);
                         }
-                        if(ret.location.x == Math.round(ret.location.x) && ret.location.y == Math.round(ret.location.y)) {
+                        if(!(Math.round(1000000 * ((ret.location.x % 1) + (ret.location.y % 1))) % 1000000)) {
                             return ret;
                         }
                     }
@@ -125,14 +123,6 @@ pinpoint_graph = {
                     }
                 }
             })
-        }
-    }
-}
-for(let lim = 0; lim <= 10; lim += 1 + (lim == 0)) {
-    for(let other = 0; other <= lim; other += 1 + (other == 0)) {
-        if(pinpoint_graph.vectorred([other, lim]).coefficient > 1) {
-            pinpoint_graph.vectors_allowed.push(other ** 2 + lim ** 2);
-            pinpoint_graph.vectors_allowed = pinpoint_graph.vectors_allowed.sort();
         }
     }
 }
