@@ -68,7 +68,9 @@ pinpoint_graph = {
                     // siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == pinpoint_graph.vectors_allowed[dist]);
                     siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == pinpoint_graph.vectors_allowed[dist]);
                     siblings = siblings.map(x => structuredClone(x));
-                    relationships.push([structuredClone(pinpoint_graph.points[point])].concat(siblings));
+                    if(siblings.length) {
+                        relationships.push([structuredClone(pinpoint_graph.points[point])].concat(siblings));
+                    }
                 }
                 relationships = relationships.sort((a, b) => -(a.length - b.length));
                 console.log(relationships);
