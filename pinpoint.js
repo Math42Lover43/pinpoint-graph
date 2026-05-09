@@ -74,6 +74,7 @@ pinpoint_graph = {
                     unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == -1).length != 0;
                     unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == 0).length != 0;
                     unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == 1).length != 0;
+                    console.log(x, unblock);
                     return unblock;
                 })
                 for(let point = 0; point < pinpoint_graph.points.length; point++) {
