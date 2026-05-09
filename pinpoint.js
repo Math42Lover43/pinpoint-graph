@@ -70,7 +70,7 @@ pinpoint_graph = {
                     siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == pinpoint_graph.vectors_allowed[dist]);
                     siblings = siblings.map(x => structuredClone(x));
                     if(siblings.length > 2) {
-                        relationships.push([structuredClone(pinpoint_graph.points[point])].concat(siblings[sis]));
+                        relationships.push([structuredClone(pinpoint_graph.points[point])].concat(siblings));
                     }
                     for(let sis = 0; sis < siblings.length; sis++) {
                         if(!oxygen.includes(`${pinpoint_graph.points[point].location.x} ${pinpoint_graph.points[point].location.y} ${siblings[sis].location.x} ${siblings[sis].location.y}`)) {
