@@ -57,7 +57,7 @@ pinpoint_graph = {
                     clearInterval(rendering);
                 }
                 if(change) {
-                    dist = 4;
+                    dist = dist;
                 } else {
                     dist++;
                 }
