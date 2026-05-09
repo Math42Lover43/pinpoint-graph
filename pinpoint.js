@@ -135,8 +135,9 @@ pinpoint_graph = {
                     if(pinpoint_graph.points.filter(x => Math.round(candidates[cand].location.x - x.location.x) == 0 && Math.round(candidates[cand].location.y - x.location.y) == 0).length == 0) {
                         pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
                         change++;
-                        console.log(change);
+                        console.log(candidates[cand], candidates[cand].location);
                     }
+                    console.log(change);
                 }
             })
         }
