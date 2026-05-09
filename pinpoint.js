@@ -54,7 +54,7 @@ pinpoint_graph = {
                 ".color.br"
             ];
             var rendering = setInterval(function(){
-                if(!(change != 0 || pinpoint_graph.vectors_allowed[dist]) {
+                if(!(change != 0 || pinpoint_graph.vectors_allowed[dist])) {
                     pinpoint_graph.rendered = true;
                     clearInterval(rendering);
                 }
