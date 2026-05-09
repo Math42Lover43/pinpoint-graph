@@ -104,9 +104,9 @@ pinpoint_graph = {
                         for(let prop = 0; prop < props.length; prop++) {
                             eval(`ret${props[prop]} /= x.length`);
                         }
-                        if(!(Math.round(1000000 * ((ret.location.x % 1) + (ret.location.y % 1))) % 1000000)) {
-                            return ret;
-                        }
+                        ret.location.x = Math.round(ret.location.x);
+                        ret.location.y = Math.round(ret.location.y);
+                        return ret;
                     }
                 });
                 relationships = candidates;
