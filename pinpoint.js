@@ -134,7 +134,7 @@ pinpoint_graph = {
 }
 for(let lim = 0; lim <= 10; lim += 1 + (lim == 0)) {
     for(let other = 0; other <= lim; other += 1 + (other == 0)) {
-        if(vectorred([other, lim]).coefficient > 1) {
+        if(pinpoint_graph.vectorred([other, lim]).coefficient > 1) {
             pinpoint_graph.vectors_allowed.push(other ** 2 + lim ** 2);
             pinpoint_graph.vectors_allowed = pinpoint_graph.vectors_allowed.sort();
         }
