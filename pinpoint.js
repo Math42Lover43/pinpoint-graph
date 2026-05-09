@@ -36,7 +36,7 @@ pinpoint_graph = {
         if(pinpoint_graph.rendered) {
             pinpoint_graph.rendered = false;
             var change = Infinity;
-            var dist = 4;
+            var dist = 1;
             var vectors;
             var relationships;
             var siblings;
@@ -57,7 +57,7 @@ pinpoint_graph = {
                     clearInterval(rendering);
                 }
                 if(change) {
-                    dist = 4;
+                    dist = 1;
                 } else {
                     dist++;
                 }
