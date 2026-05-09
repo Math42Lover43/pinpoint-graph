@@ -41,7 +41,6 @@ pinpoint_graph = {
             var relationships;
             var siblings;
             var candidates;
-            var oxygen;
             var props = [
                 ".location.x",
                 ".location.y",
@@ -64,20 +63,6 @@ pinpoint_graph = {
                 }
                 change = 0;
                 relationships = [];
-                var old = pinpoint_graph.points.length;
-                oxygen = pinpoint_graph.points;
-                pinpoint_graph.points = pinpoint_graph.points.filter(function(x) {
-                    var unblock = 8;
-                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == -1 && (y.location.y - x.location.y) == -1).length != 0;
-                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == -1 && (y.location.y - x.location.y) == 0).length != 0;
-                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == -1 && (y.location.y - x.location.y) == 1).length != 0;
-                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == 0 && (y.location.y - x.location.y) == -1).length != 0;
-                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == 0 && (y.location.y - x.location.y) == 1).length != 0;
-                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == -1).length != 0;
-                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == 0).length != 0;
-                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == 1).length != 0;
-                    return unblock;
-                });
                 for(let point = 0; point < pinpoint_graph.points.length; point++) {
                     // siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist);
                     siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist);
@@ -132,12 +117,10 @@ pinpoint_graph = {
                 // x => x && pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0)
                 candidates = candidates.filter(x => x && (pinpoint_graph.points.filter(k => k.location.x == x.location.x && k.location.y == x.location.y).length == 0));
                 for(let cand = 0; cand < candidates.length; cand++) {
-                    if(pinpoint_graph.points.filter(x => Math.round(candidates[cand].location.x - x.location.x) == 0 && Math.round(candidates[cand].location.y - x.location.y) == 0).length == 0 && candidates[cand].location.x % 1 == 0 && candidates[cand].location.y % 1 == 0) {
+                    if(pinpoint_graph.points.filter(x => Math.round(candidates[cand].location.x - x.location.x) == 0 && Math.round(candidates[cand].location.y - x.location.y) == 0).length == 0) {
                         pinpoint_graph.pinpoint(canvas, candidates[cand].location, candidates[cand].color, pinpoint_graph.size);
                         change++;
-                        console.log(candidates[cand], candidates[cand].location);
                     }
-                    console.log(change);
                 }
             })
         }
