@@ -65,16 +65,17 @@ pinpoint_graph = {
                 change = 0;
                 relationships = [];
                 var old = pinpoint_graph.points.length;
+                oxygen = pinpoint_graph.points;
                 pinpoint_graph.points = pinpoint_graph.points.filter(function(x) {
                     var unblock = 8;
-                    unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == -1 && (y.location.y - x.location.y) == -1).length != 0;
-                    unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == -1 && (y.location.y - x.location.y) == 0).length != 0;
-                    unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == -1 && (y.location.y - x.location.y) == 1).length != 0;
-                    unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == 0 && (y.location.y - x.location.y) == -1).length != 0;
-                    unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == 0 && (y.location.y - x.location.y) == 1).length != 0;
-                    unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == -1).length != 0;
-                    unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == 0).length != 0;
-                    unblock -= pinpoint_graph.points.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == 1).length != 0;
+                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == -1 && (y.location.y - x.location.y) == -1).length != 0;
+                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == -1 && (y.location.y - x.location.y) == 0).length != 0;
+                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == -1 && (y.location.y - x.location.y) == 1).length != 0;
+                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == 0 && (y.location.y - x.location.y) == -1).length != 0;
+                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == 0 && (y.location.y - x.location.y) == 1).length != 0;
+                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == -1).length != 0;
+                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == 0).length != 0;
+                    unblock -= oxygen.filter(y => (y.location.x - x.location.x) == 1 && (y.location.y - x.location.y) == 1).length != 0;
                     return unblock;
                 });
                 console.log(old - pinpoint_graph.points.length);
