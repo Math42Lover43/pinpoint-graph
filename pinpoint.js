@@ -131,7 +131,9 @@ for(let j = 2; j <= 10; j++) {
     for(let i = 0; i <= j; i += 1 + (i == 0)) {
         if(pinpoint_graph.vectorred([i, j]).coefficient > 1 && !pinpoint_graph.valid_radii.includes(i ** 2 + j ** 2)) {
             pinpoint_graph.valid_radii.push(i ** 2 + j ** 2);
-            pinpoint_graph.valid_radii = pinpoint_graph.valid_radii.sort();
+            pinpoint_graph.valid_radii = pinpoint_graph.valid_radii.sort(function(a, b) {
+                return a - b;
+            });
         }
     }
 }
