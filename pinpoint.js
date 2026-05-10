@@ -32,11 +32,12 @@ pinpoint_graph = {
         }
         return {"vector": v, "coefficient": c};
     },
+    "valid_radii": [],
     "interpolate": function(canvas) {
         if(pinpoint_graph.rendered) {
             pinpoint_graph.rendered = false;
             var change = Infinity;
-            var dist = 4;
+            var dist = 0;
             var vectors;
             var relationships;
             var siblings;
@@ -52,20 +53,20 @@ pinpoint_graph = {
                 ".color.br"
             ];
             var rendering = setInterval(function(){
-                if(!(change != 0 || dist <= pinpoint_graph.points.length ** 2)) {
+                if(dist >= pinpoint_graph.valid_radii.length) {
                     pinpoint_graph.rendered = true;
                     clearInterval(rendering);
                 }
                 if(change) {
-                    dist = 4;
+                    dist = 0;
                 } else {
                     dist++;
                 }
                 change = 0;
                 relationships = [];
                 for(let point = 0; point < pinpoint_graph.points.length; point++) {
-                    // siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist);
-                    siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == dist);
+                    // siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == pinpoint_graph.valid_radii[dist]);
+                    siblings = pinpoint_graph.points.filter(i => (i.location.x - pinpoint_graph.points[point].location.x) ** 2 + (i.location.y - pinpoint_graph.points[point].location.y) ** 2 == pinpoint_graph.valid_radii[dist]);
                     siblings = siblings.map(x => structuredClone(x));
                     if(siblings.length) {
                         relationships.push([structuredClone(pinpoint_graph.points[point])].concat(siblings));
@@ -123,6 +124,14 @@ pinpoint_graph = {
                     }
                 }
             })
+        }
+    }
+}
+for(let j = 2; j <= 10; j++) {
+    for(let i = 0; i <= j; i += 1 + (i == 0)) {
+        if(pinpoint_graph.vectorred([i, j]).coefficient > 1 && !pinpoint_graph.valid_radii.includes(i ** 2 + j ** 2)) {
+            pinpoint_graph.valid_radii.push(i ** 2 + j ** 2);
+            pinpoint_graph.valid_radii = pinpoint_graph.valid_radii.sort();
         }
     }
 }
