@@ -43,8 +43,9 @@
             function wmrp(start, curr, rate, system_mismatch) {
                 pinpoint_graph.pinpoint("wm_retention", {"x": 3 * (curr - 2001), "y": 3 * (start - 2001)}, {"rg": rate, "b": system_mismatch}, 2);
             }
+            document.getElementById("wm_retention").getContext("2d").lineWidth = 1;
+            document.getElementById("wm_retention").getContext("2d").strokeStyle = "rgb(0, 0, 0)";
             for(let k = 2001; k <= 2025; k += 3) {
-                document.getElementById("wm_retention").getContext("2d").strokeStyle = "black";
                 document.getElementById("wm_retention").getContext("2d").beginPath();
                 document.getElementById("wm_retention").getContext("2d").moveTo(9 * (k - 2001), 0);
                 document.getElementById("wm_retention").getContext("2d").lineTo(9 * (k - 2001), 216);
