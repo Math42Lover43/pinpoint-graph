@@ -44,7 +44,7 @@
                 pinpoint_graph.pinpoint("wm_retention", {"x": 3 * (curr - 2001), "y": 3 * (start - 2001)}, {"rg": rate, "b": system_mismatch}, 2);
             }
             document.getElementById("wm_retention").getContext("2d").lineWidth = 1;
-            document.getElementById("wm_retention").getContext("2d").strokeStyle = "rgb(191, 191, 191)";
+            document.getElementById("wm_retention").getContext("2d").strokeStyle = "rgb(223, 223, 223)";
             for(let k = 2001; k <= 2025; k += 3) {
                 document.getElementById("wm_retention").getContext("2d").beginPath();
                 document.getElementById("wm_retention").getContext("2d").moveTo(6 * (k - 2001) + 0.5, 0.5);
