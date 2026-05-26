@@ -5,8 +5,7 @@ pinpoint_graph = {
     "pinpoint": function(canvas, location, color, size) {
         location = {"x": Math.round(location.x), "y": Math.round(location.y)};
         pinpoint_graph.size = size;
-        document.getElementById(canvas).getContext("2d").fillStyle = `rgb(${color.br ? (color.br * 255) : color.rg ? (255 - color.rg * 255) : color.r}, ${color.rg ? (color.rg * 255) : color.gb ? (255 - color.gb * 255) : color.g}, ${color.gb ? (color.gb * 255) : color.br ? (255 - color.br * 255) : color.b})`;
-        console.log(document.getElementById(canvas).getContext("2d").fillStyle);
+        document.getElementById(canvas).getContext("2d").fillStyle = `rgb(${color.br ? (color.br * 255) : color.rg ? (255 - color.rg * 255) : 255 * color.r}, ${color.rg ? (color.rg * 255) : color.gb ? (255 - color.gb * 255) : 255 * color.g}, ${color.gb ? (color.gb * 255) : color.br ? (255 - color.br * 255) : 255 * color.b})`;
         document.getElementById(canvas).getContext("2d").fillRect(location.x * size, location.y * size, size, size);
         pinpoint_graph.points.push({
             "location": location,
